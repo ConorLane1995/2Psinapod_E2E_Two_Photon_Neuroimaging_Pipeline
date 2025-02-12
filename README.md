@@ -1,8 +1,7 @@
 # **2Psinapod** - *extraction of auditory neural response features from two-photon recordings.*
 
-Hey de Villers-Sidani lab descendant!  
-
-This repository is intended to provide a full analysis pipeline and guide to extracting auditory neuronal feature information from raw two-photon recordings. 
+The 2PSinaPod analysis pipeline is designed to extract key neural response properties from two-photon recordings, focusing on auditory neuronal feature information. This comprehensive pipeline caters to various steps from raw data processing to feature extraction and interactive data visualization, using a range of external tools and custom Jupyter Notebooks.
+ 
 
 ## Analysis Notebooks:
 
@@ -31,9 +30,32 @@ https://github.com/ransona/ROIMatchPub
 https://www.tdt.com/docs/sdk/offline-data-analysis/offline-data-matlab/
 
 
+## Author Contributions:
+
+Conor Lane: Development and implementation of the analysis pipeline.
+
+Veronica Tarka: Contributions to the analysis and validation of results.
+
+For more information, contact Conor Lane at **conor.lane1995@gmail.com**.
 
 
 
-Authors:  Conor Lane, Veronica Tarka
 
-Contact: conor.lane1995@gmail.com
+
+
+Key Features:
+End-to-End Analysis: From raw two-photon TIFF files to detailed neuronal tuning properties.
+Custom Jupyter Notebooks: Specialized notebooks for different neuronal properties such as response bandwidth and best frequency.
+Integration with External Tools: Utilizes powerful tools including Suite2P for motion correction and calcium signal extraction, ROIMatchPub for longitudinal analysis, and TDTBin2Mat for data conversion.
+Technologies and Tools:
+Languages: Jupyter Notebook (97.8%), Python (2.2%)
+Suite2P: Motion correction, ROI identification, and signal extraction.
+ROIMatchPub: Efficient matching of neuronal ROIs across recordings.
+TDTBin2Mat: Conversion of TDT hardware file types for analysis.
+Impact and Applications:
+The pipeline is instrumental in studying the effects of various treatments on neural responses, enabling detailed and accurate analysis of neuronal data over time. Its robust design and integration with advanced tools make it a valuable resource for researchers in the field of neuroimaging.
+
+Author Contributions:
+Conor Lane: Development and implementation of the analysis pipeline.
+Veronica Tarka: Contributions to the analysis and validation of results.
+For more information, contact Conor Lane at conor.lane1995@gmail.com.
