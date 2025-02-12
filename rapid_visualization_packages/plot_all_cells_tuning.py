@@ -1,7 +1,7 @@
 """
 Plots the tuning heatmaps (nIntensities x nFrequencies) for every active cell
 INPUT: cell_dictionary.pkl, recording_info.pkl
-AUTHOR: Veronica Tarka, August 2022, veronica.tarka@mail.mcgill.ca
+AUTHORS: Conor Lane, Veronica Tarka, August 2022, conor.lane1995@gmail.com
 """
 
 import matplotlib.pyplot as plt
@@ -13,7 +13,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)) + '/../../')
-from utils import get_active_cells
+
 
 # load what we need from the config file
 with open(os.path.abspath(os.path.dirname(__file__)) +'/../../../config.json','r') as f:

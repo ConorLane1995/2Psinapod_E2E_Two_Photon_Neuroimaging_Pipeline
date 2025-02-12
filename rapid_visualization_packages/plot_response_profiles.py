@@ -1,7 +1,7 @@
 """
 Plots response profiles as shown in Figure 1 of this paper: https://elifesciences.org/articles/53462
 INPUT: cell_dictionary (with 'tuning' key) and recording_info.pkl
-AUTHOR: Veronica Tarka, July 2022, veronica.tarka@mail.mcgill.ca
+AUTHORS: Conor Lane, Veronica Tarka, July 2022, conor.lane1995@gmail.com
 """
 
 import matplotlib.pyplot as plt

@@ -2,7 +2,7 @@
   "NOTE_1": "FILENAMES TO PULL",
 
   "RepoDir": "C:/Users/Conor/2PsinapodConor", 
-  "RecordingFolder": "F:/Two-Photon/Psilocybin Project/Evoked Cohort Mice/ID473/psilo/TSeries-10132023-1324-140/suite2p/plane0/",
+  "RecordingFolder": "F:/Two-Photon/Psilocybin Project/Evoked Cohort Mice/ID237/12082022_GCaMP6s_ID237_saline/TSeries-12082022-1143-031/suite2p/plane0/",
   "Triggers": "TSeries-10132023-1324-140_Cycle00001_VoltageRecording_001.csv",
   "Conditions": "ID473_13102023_2.mat",
   "AnalysisFile": "cells.pkl",
