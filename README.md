@@ -9,7 +9,7 @@ The 2PSinaPod analysis pipeline is designed to extract key neural response prope
 
 Feature extraction and analysis code is contained in Jupyter notebooks.  Each notebook covers a particular neuronal property or group of properties, e.g. response bandwidth or best frequency.  
 
-They are all designed to start from the same point, taking the formatted and normalized neuronal response dictionaries for a full response cohort (e.g. post-psilocybin administration).  They are set up to analyze all animals together but containing the ID's in dictionaries allows you to select particular animals, or run mixed effects models. 
+They are all designed to start from the same point, taking the formatted and normalized neuronal response dictionaries for a full animal cohort (e.g. post-psilocybin administration). They are set up to analyze all animals together but containing the ID's in dictionaries allows you to select particular animals, or run mixed effects models with animal ID as a random effect. 
 
 ## External Tools Employed: 
 The full pipeline uses a number of tools that help us get from TIFF files to neuronal tuning properties. These are:
