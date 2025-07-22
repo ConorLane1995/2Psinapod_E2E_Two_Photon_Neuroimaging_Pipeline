@@ -77,27 +77,17 @@ def get_all_trial_baselines(cell_trace, n_baseline_frames):
     np.ndarray: Mean baseline activity for each frequency and intensity combination.
     """
      
-    # Extract the number of frequencies, intensities, and repetitions
-    nfreq = len(cell_trace)
-    nInt = len(cell_trace[next(iter(cell_trace))])  # next(iter) gets you the first cell so you don't have to hard code 0.
-    nrep = len(cell_trace[next(iter(cell_trace))][next(iter(cell_trace[next(iter(cell_trace))]))])
+    all_baselines = []
     
-    # Create a NumPy array to hold trials
-    trials = np.empty((nfreq, nInt, nrep, n_baseline_frames))
-
-    # Populate the trials array
-    for i, freq in enumerate(cell_trace):
-        for j, intensity in enumerate(cell_trace[freq]):
-            for k, rep in enumerate(cell_trace[freq][intensity]):
-                trials[i, j, k] = rep
-
-    # Extract baseline frames for each trial
-    baselines = trials[:, :, :, :n_baseline_frames]
+    # Iterate through all conditions and trials
+    for freq in cell_trace:
+        for intensity in cell_trace[freq]:
+            for trial in cell_trace[freq][intensity]:
+                baseline = cell_trace[freq][intensity][trial][:n_baseline_frames]
+                baseline_mean = np.mean(baseline)
+                all_baselines.append(baseline_mean)
     
-    # Individual mean value for each baseline, to feed into zscore function. 
-    baselines = np.mean(baselines, axis=-1)
-
-    return baselines
+    return np.array(all_baselines)
 
 
 
@@ -197,7 +187,7 @@ def main():
         pickle.dump(cell_dictionary_with_tuning,f)
 
     
-    print("Tuning extraction complete! To see tuning for individual cells, go to plot_single_cell_tuning in rapid_visualization_packages")
+    print("Tuning extraction complete! To see tuning for individual cells, go to plot_single_cell_tuning in rapid_visualization_tools")
 
 
 if __name__ == '__main__':

@@ -2,9 +2,9 @@
   "NOTE_1": "FILENAMES TO PULL",
 
   "RepoDir": "C:/Users/Conor/2PsinapodConor", 
-  "RecordingFolder": "F:/Two-Photon/Psilocybin Project/Evoked Cohort Mice/ID237/12082022_GCaMP6s_ID237_saline/TSeries-12082022-1143-031/suite2p/plane0/",
-  "Triggers": "TSeries-10132023-1324-140_Cycle00001_VoltageRecording_001.csv",
-  "Conditions": "ID473_13102023_2.mat",
+  "RecordingFolder": "F:/Two-Photon/Psilocybin Project/Adaptation Cohort/ID435/saline/TSeries-08072023-1534-109/suite2p/plane0/",
+  "Triggers": "TSeries-08072023-1534-109_Cycle00001_VoltageRecording_001.csv",
+  "Conditions": "ID435_08082023_1.mat",
   "AnalysisFile": "cells.pkl",
 
 
@@ -18,5 +18,11 @@
   "TriggerFR": 1000,
   "Neuropil": 0.7,
 
-  "CompilationFolder": "F:/Two-Photon/Psilocybin Project/Evoked Cohort Mice/compiled_dicts_test/"
+
+  "NOTE_3": "FOR CELL MATCHING",
+
+  "CompilationFolder": "F:/Two-Photon/Psilocybin Project/Evoked Cohort Mice/compiled_dicts_test/",
+  "RecordingFolder2": "F:/Two-Photon/Psilocybin Project/Evoked Cohort Mice/ID474/psilo/TSeries-10132023-1324-143/suite2p/plane0/",
+
+  "CellMatchFile": "roimatch_142_143.csv"
 }

@@ -9,15 +9,27 @@ import numpy as np
 import pickle
 import json
 import os
+from dataclasses import dataclass
 
-# load what we need from the config file
-with open(os.path.abspath(os.path.dirname(__file__)) +'/../../../config.json','r') as f:
-    config = json.load(f)
+# Import general functions from preprocess_utils file.
+from preprocess_utils import load_config_from_json
 
-BASE_PATH = config['RecordingFolder']
-CELL_DICT_FILE = config['AnalysisFile']
+# Create a class to extract the required elements from the config.json that are used here, and load as config. 
+@dataclass
+class Config:
+    RecordingFolder: str
+    AnalysisFile: str
+    RecordingFR: int
+    EpochStart: int
+    ZscoreThreshold: int
 
-CELL_OF_INTEREST = 809
+# Load the required variables from config.json into the config class, only if they are listed in the class.
+config = load_config_from_json(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'config.json')), Config)
+
+BASE_PATH = config.RecordingFolder
+CELL_DICT_FILE = config.AnalysisFile
+
+CELL_OF_INTEREST = 15
 
 """
 Shows the tuning heatmap for a single cell, specified by the CELL_OF_INTEREST ID number
@@ -64,11 +76,19 @@ Plot the tuning traces for a single cell
 def plot_tuning_traces(cell_traces,n_frequencies,n_intensities,y_limit):
 
     fig,axs = plt.subplots(n_intensities,n_frequencies,sharex='col',sharey='row',figsize=(14,5))
+    
+    # Handle different subplot array dimensions
+    if n_intensities == 1 and n_frequencies == 1:
+        axs = np.array([[axs]])  # Make it 2D
+    elif n_intensities == 1:
+        axs = axs.reshape(1, -1)  # Make it 2D: 1 row, n_frequencies columns
+    elif n_frequencies == 1:
+        axs = axs.reshape(-1, 1)  # Make it 2D: n_intensities rows, 1 column
 
     for row,freq in zip(range(n_frequencies),cell_traces.keys()):
         for col,itsy in zip(range(n_intensities),reversed(list(cell_traces[freq].keys()))):
             for rep in cell_traces[freq][itsy]:
-                axs[col,row].plot(cell_traces[freq][itsy][rep]) # plot every trial
+                axs[col,row].plot(cell_traces[freq][itsy][rep])
 
             # miscellaneous formatting
             axs[col,row].set_xticks([])
@@ -102,7 +122,7 @@ def main():
     intensities = recording_info['intensities']
 
     plot_single_tuning_curve(cell_dict[CELL_OF_INTEREST]['tuning'],CELL_OF_INTEREST,frequencies,intensities)
-    plot_tuning_traces(cell_dict[CELL_OF_INTEREST]['traces'],len(frequencies),len(intensities),100)
+    plot_tuning_traces(cell_dict[CELL_OF_INTEREST]['traces'],len(frequencies),len(intensities),500)
     plt.show()
 
 if __name__=="__main__":

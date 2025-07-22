@@ -185,7 +185,7 @@ def format_trials(traces,conditions):
     return freq_dict
 
 
-def format_all_cells(epoched_traces,conditions,iscell_logical,epoched_deconvolved_traces):
+def format_all_cells(epoched_traces,conditions,iscell_logical,epoched_deconvolved_traces,coords):
 
     """
     Convert the epoched traces from an array to a dictionary
@@ -213,7 +213,9 @@ def format_all_cells(epoched_traces,conditions,iscell_logical,epoched_deconvolve
     #                           [x,x,x,x,...] }}}}}
 
     for cell_idx in range(len(cell_IDs)):
-        dict_of_cells[cell_IDs[cell_idx]] = {'traces': format_trials(epoched_traces[cell_idx,:,:],conditions),'deconvolved_traces': format_trials(epoched_deconvolved_traces[cell_idx,:,:],conditions)}
+        dict_of_cells[cell_IDs[cell_idx]] = {'traces': format_trials(epoched_traces[cell_idx,:,:],conditions),
+                                             'deconvolved_traces': format_trials(epoched_deconvolved_traces[cell_idx,:,:],conditions),
+                                             'coords': coords[cell_idx]}
     
     return dict_of_cells
 
@@ -230,6 +232,7 @@ def main():
     deconvolved_trace = np.load(BASE_PATH + "spks.npy", allow_pickle=True ) # Deconvolved spike train for each ROI
     neuropil_trace = np.load(BASE_PATH + "Fneu.npy",allow_pickle=True) # estimation of background fluorescence for each ROI
     iscell_logical = np.load(BASE_PATH + "iscell.npy",allow_pickle=True) # Suite2P's estimation of whether each ROI is a cell or not
+    stat = np.load(BASE_PATH + "stat.npy",allow_pickle=True)
 
     stimulus_onset_frames = get_stimulus_onset_frames(stimulus)
 
@@ -249,11 +252,16 @@ def main():
     # Get deconvolved traces for the ROIs that are actually cells
     deconvolved_in_cells = deconvolved_trace[cell_indices, :]
 
+    # Get the coordinates of each cell's centroid (Y,X)
+    coords = [stat[i]['med'] for i in cell_indices]
+
     # Epoch the traces using the obtained indices
-    epoched_traces = epoch_trace(fluo_in_cells, stimulus_onset_frames)
+    epoched_traces = epoch_trace(fluo_in_cells, stimulus_onset_frames,EPOCH_START_IN_MS,EPOCH_END_IN_MS,RECORDING_FRAMERATE)
 
     # epoch the deconvolved traces so we just get activity during trials
-    epoched_deconvolved_traces = epoch_trace(deconvolved_in_cells,stimulus_onset_frames)
+    epoched_deconvolved_traces = epoch_trace(deconvolved_in_cells,stimulus_onset_frames,EPOCH_START_IN_MS,EPOCH_END_IN_MS,RECORDING_FRAMERATE)
+
+    
 
     np.save(BASE_PATH+"raw_corrected_traces.npy",fluo_in_cells) # save the trace for each cell ROI 
     np.save(BASE_PATH + "raw_deconvolved_traces.npy",deconvolved_in_cells) # save the deconvolved trace for each cell ROI
@@ -261,7 +269,7 @@ def main():
     np.save(BASE_PATH+"epoched_deconvolved_traces.npy",epoched_deconvolved_traces) # save the deconvolved trace for trial before it's formatted into a dictionary
     np.save(BASE_PATH+"onsets.npy",stimulus_onset_frames) # save the list of trigger frames (trial onsets)
 
-    dictionary_of_cells = format_all_cells(epoched_traces,conditions,iscell_logical,epoched_deconvolved_traces)
+    dictionary_of_cells = format_all_cells(epoched_traces,conditions,iscell_logical,epoched_deconvolved_traces,coords)
 
     # collect some information about the stim to access later on if we want
     recording_info = dict()
